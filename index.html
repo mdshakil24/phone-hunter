@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+    <section>
+        <!-- search fields  -->
+        <div class="search-phone bg-white p-5 text-center">
+            <input id="inputText" type="text" class="input input-succes w-full max-w-xs" placeholder="Search phone" />
+            <button onclick="searchPhone()" class="btn btn-accent ml-4">Search</button>
+        </div>
+    </section>
+
+    <section>
+        <!-- spinner or loader  -->
+        <div id="loading-spinner" class="text-center mt-5 hidden">
+            <span class="loading loading-spinner loading-lg"></span>
+        </div>
+
+        <!-- display phone search result -->
+        <div class="container m-auto py-16">
+            <div id="didNotGetData">
+                
+            </div>
+            <div id="phone-container" class="grid grid-rows-2 grid-cols-3 gap-5">
+
+            </div>
+        </div>
+
+        <!-- show all button  -->
+        <div id="show-all-btn" class="text-center mb-10 hidden">
+            <button onclick="showAllPhones()" class="btn btn-primary w-40">Show All</button>
+        </div>
+
+        <!-- Show Details Modals -->
+        <dialog id="show_details" class="modal">
+            <div class="modal-box bg-white">
+                <div id="show-details-container">
+                    
+                </div>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn bg-primary border-none">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+
+
+    </section>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/phone.js"></script>
+</body>
+
+</html>
