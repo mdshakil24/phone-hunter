@@ -25,19 +25,8 @@ const loadPhone = async (searchText='iphone',isShowAll) => {
     const response = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await response.json();
     const phones = data.data;
-    console.log(isShowAll);
 
-    // if((phones.length === 0 || !searchText) && !isShowAll) {
-    //     document.getElementById('didNotGetData').innerHTML = `<h2 class="text-center text-3xl w-full">No Data Available</h2>`;
-    // }else {
-    //     document.getElementById('inputText').innerText = 'iphone';
-    // }
-
-    
     displayPhones(phones,isShowAll);
-
-
-   
 }
 // this is call for default search value
 loadPhone();
@@ -85,8 +74,14 @@ const displayPhones = (getPhoneData,isShowAll) => {
         phoneContainer.appendChild(createDiv);
     });
 
+    // If no data found show this text
+    const dataNotFound = document.getElementById('didNotGetData');
+    if(phoneContainer.textContent === '') {
+        dataNotFound.classList.remove('hidden');
+    }else {
+        dataNotFound.classList.add('hidden');
+    }
     handleLoading(false);
-
 }
 
 // handle show details 
@@ -101,6 +96,8 @@ const showDetails = (phone) => {
     console.log(phone);
 
     const showDetailsContainer = document.getElementById('show-details-container');
+
+
     showDetailsContainer.innerHTML = `
         <div class='text-center'>
             <img class="block m-auto" src='${phone.image}' alt='phoneImage'>
@@ -115,9 +112,36 @@ const showDetails = (phone) => {
             <p><span class='font-bold'>Slug: </span> ${phone.slug}</p>
             <p><span class='font-bold'>Release data: </span> ${phone?.releaseDate || 'No release date'}</p>
             <p><span class='font-bold'>Brand: </span> ${phone.brand}</p>
+
+            <p><span class='font-bold'>Sensors: </span> <span id="sensors" class="font-normal"></span>
+                <ul id='phone-sensor'>
+
+                </ul>
+            </p>
+            
             <p><span class='font-bold'>GPS: </span> ${phone.others?.GPS ? phone.others.GPS : "No GPS"}</p> 
         </div>
     `;
+
+        // Show sensors
+        const sensors = phone.mainFeatures?.sensors;
+        const sensorContainer = document.getElementById('phone-sensor');
+
+        if(sensors) {
+           
+            sensors.forEach(name => {
+                const li = document.createElement('li');
+                li.classList = 'list-disc ml-7';
+                li.innerText = name;
+                sensorContainer.appendChild(li);
+            });
+            
+        }else {
+            document.getElementById('sensors').innerText = "No Sensors";
+        }
+        
+
+        
 
     show_details.showModal();
 }
